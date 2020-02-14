@@ -1,0 +1,37 @@
+﻿@using Vektorel.Windows.KitapBankosuApp.Models
+@model Yazar
+@{
+    ViewBag.Title = "YazarEkle";
+}
+
+<h2>Yazar Ekleme İşlemi</h2>
+<form action="/Admin/Yazar/YazarEkle" method="post">
+    <div>
+        <lable>Yazar Ad</lable>
+        <input type="text" name="Ad" id="Ad" value=" " />
+    </div>
+    <div>
+        <lable>Doğum Tarihi</lable>
+        <input type="date" name="DogumTarih" id="DogumTarih" value=" " />
+    </div>
+    <div>
+
+        <input type="submit" name="btnKaydet" id="btnKaydet" value="Kaydet " class="btn btn-success" />
+    </div>
+</form>
+
+@using (Html.BeginForm("YazarEkle", "Yazar", FormMethod.Post))
+{
+    <div>
+        @Html.LabelFor(yz => yz.YazarAd)
+        @Html.TextBoxFor(yz => yz.YazarAd)
+    </div>
+    <div>
+        @Html.LabelFor(yz => yz.DogumTarih,new{@title="Doğum Tarihi"})
+        @Html.TextBoxFor(yz => yz.DogumTarih,new { @type = "date" })
+    </div>
+    <div>
+        <input type="submit" name="btnKaydet" id="btnKaydet" value="Kaydet " class="btn btn-success" />
+    </div>
+
+}

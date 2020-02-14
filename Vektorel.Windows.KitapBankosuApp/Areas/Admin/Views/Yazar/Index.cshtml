@@ -1,0 +1,96 @@
+﻿@using Vektorel.Windows.KitapBankosuApp.Models
+@model YazarViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Yazar Yönetimi</h2>
+<btn class="btn btn-success" data-toggle="modal" data-target="#mdlYazarEkle">Yazar Ekle</btn>
+@*<a href="/Admin/Yazar/YazarEkle" class="btn btn-success" data-toggle="modal" data-target="#mdlYazarEkle">Yazar Ekle</a>*@
+
+<h3>Yazar Listesi</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th> Yazar Ad </th>
+            <th> Yazar Doğum Tarihi</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Yazarlar)
+        {
+            <tr>
+                <td>@item.YazarAd</td>
+                <td>@item.DogumTarih</td>
+                <td>
+                    <a href="/Admin/Yazar/YazarDetay/@item.YazarId" class="btn btn-sm btn-info">Detaylar</a><a href="/Admin/Yazar/YazarSil/@item.YazarId" class="btn btn-sm btn-danger">Sil</a>
+                </td>
+
+            </tr>
+
+        }
+
+
+
+    </tbody>
+
+
+
+
+</table>
+
+<div class="modal fade" id="mdlYazarEkle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+              
+                
+                    <div>
+                        @Html.LabelFor(yz => yz.yazar.YazarAd)
+                        @Html.TextBoxFor(yz => yz.yazar.DogumTarih)
+                    </div>
+                    <div>
+                        @Html.LabelFor(yz => yz.yazar.YazarAd)
+                        @Html.TextBoxFor(yz => yz.yazar.YazarAd, new { @type = "date" })
+                    </div>
+                   
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                <input type="button" name="btnKaydet" id="btnKaydet" value="Kaydet " class="btn btn-success" onclick="YazarEkle()" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+
+    
+    <script>
+        function YazarEkle() {
+            $.ajax({
+                url: "/Admin/Yazar/YazarEkle",
+                type: "POST",
+                data: {
+                    YazarAd: $("#yazar_DogumTarih").val(),
+                    DogumTarih: $("#yazar_YazarAd").val()
+                },
+                    success: function () {
+                    alert("Ekleme başarılı");
+                }
+            }
+            );
+}
+         
+    </script>
+}
